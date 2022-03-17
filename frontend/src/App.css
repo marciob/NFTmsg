@@ -1,0 +1,101 @@
+/* *{
+  padding: 0;
+margin:0;
+box-sizing: border-box;
+text-decoration: none;
+font-family: arial, sans-serif;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+nav{
+  display: flex;
+align-items: center;
+justify-content: flex-end;
+margin-right: 30px;
+margin-top: 14px;
+}
+
+nav button{
+  border: 1px solid #4285f4;
+font-weight: bold;
+outline: none;
+background: #4285f4;
+color: #fff;
+padding: 7px 12px;
+border-radius: 3px;
+margin-left: 7px;
+cursor: pointer;
+}
+
+nav button:hover{
+  opacity: .9;
+}
+
+.section-1{
+  flex:1;
+}
+
+.section-1 .logo{
+  display: block;
+  margin: 0px auto;
+  margin-top: 107px;
+} */
+
+/* .app{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+} */
+
+
+/* semantic UI */
+
+body{
+  /* background: rgb(2,0,36);
+  background: radial-gradient(circle, rgba(2,0,36,1) 0%); */
+  
+  /* Created with https://www.css-gradient.com */
+background: rgba(59, 116, 255, 1.0);
+background: -webkit-radial-gradient(center, rgba(59, 116, 255, 1.0), rgba(7, 59, 139, 1.0));
+background: -moz-radial-gradient(center, rgba(59, 116, 255, 1.0), rgba(7, 59, 139, 1.0));
+background: radial-gradient(ellipse at center, rgba(59, 116, 255, 1.0), rgba(7, 59, 139, 1.0));
+}
+
+.container{
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+}
+
+.container > form{
+  width: 70%;
+  border: 1px solid #dfdfdf;
+  padding: 20px;
+  border-radius: 5px;
+  background: #fff;
+}
+
+pre{
+  width: 70%;
+  color: #fff;
+  font-size: larger;
+}
+
+button{
+  background-color: #0563b4;
+}
+
+p{
+  color: red;
+}
