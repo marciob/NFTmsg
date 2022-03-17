@@ -1,12 +1,11 @@
 import { React, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ethers } from 'ethers';
-import "./formInput.css"
-import LoveMessageTestnet from '../utils/LoveMessageTestnet.json';
+import "../formInput.css"
+import NftMsg from '../utils/NftMsg.json';
 import uploadToIpfs from "../utils/upload";
 
-const contractAddresss = "0x613c427965a0698dF7cA1867927062c00C0C5892";
-
+const contractAddresss = "0x1807F04587F4928d2526d1bAD4986c69550FE04d";
 
 export default function FormInput() {
 
@@ -49,15 +48,14 @@ export default function FormInput() {
 
     async function mint(to, metadata) {
         const signer = await provider.getSigner();
-        const contractInstance = new ethers.Contract(contractAddresss, LoveMessageTestnet.abi, signer);
-        const currentLoveMessage = await contractInstance.payToMint(to, metadata, {
-            gasLimit: 250000,
-            value: ethers.utils.parseEther("0.01")
-        });
-        return currentLoveMessage;
-        // setCurrentGreeting(currentLoveMessage);
-        // console.log("on mint to: ", to)
-        // console.log("on mint metadata: ", metadata)
+        const contractInstance = new ethers.Contract(contractAddresss, NftMsg.abi, signer);
+        const currentNftMsg = await contractInstance.safeMint(to, metadata);
+        // const currentNftMsg = await contractInstance.specialMint(to, metadata, {
+        //     gasLimit: 250000,
+        //     value: ethers.utils.parseEther("0.01")
+        // });
+        return currentNftMsg;
+
     }
 
     async function generateMetadata(data) {
@@ -109,9 +107,9 @@ export default function FormInput() {
                             <textarea
                                 rows={5}
                                 cols={5}
-                                type="text" name="nftMessage" placeholder="Enter a lovely message" {...register('nftMessage', { required: "Please enter a message", maxLength: 1600 })}
+                                type="text" name="nftMessage" placeholder="Enter a message" {...register('nftMessage', { required: "Please enter a message", maxLength: 1600 })}
                             />
-                            {/* <input type="text" name="nftMessage" placeholder="Enter a lovely message" {...register('nftMessage', { required: "Please enter a message", maxLength: 160 })} /> */}
+                            {/* <input type="text" name="nftMessage" placeholder="Enter a message" {...register('nftMessage', { required: "Please enter a message", maxLength: 160 })} /> */}
                         </div>
                         <p>{errors.nftMessage?.message}</p>
                         {errors.email && errors.email.type === "maxLength" && (
