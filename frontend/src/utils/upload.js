@@ -8,7 +8,7 @@ export default async function uploadToIpfs(from, to, msg, content) {
     const files = [{
         path: '/',
         content: JSON.stringify({
-            name: "NFT as Email",
+            name: "NFTmsg",
             attributes: [
                 {
                     "trait_type": "From",

@@ -1,19 +1,29 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("NftMsg", function () {
+  it("Should mint and transfer an NFT to someone", async function () {
+    const NftMsg = await ethers.getContractFactory("NftMsg");
+    const nftMsg = await NftMsg.deploy();
+    await nftMsg.deployed();
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+    const recipient = '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266';
+    const metadataURI = 'cid/test.png';
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+    let balance = await nftMsg.balanceOf(recipient);
+    expect(balance).to.equal(0);
+
+    const newlyMintedToken = await nftMsg.safeMint(recipient, metadataURI);
 
     // wait until the transaction is mined
-    await setGreetingTx.wait();
+    await newlyMintedToken.wait();
 
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+    balance = await nftMsg.balanceOf(recipient)
+    expect(balance).to.equal(1);
+
+    expect(await nftMsg.isContentOwned(metadataURI)).to.equal(true);
+    const newlyMintedToken2 = await nftMsg.safeMint(recipient, 'foo',);
   });
 });
+
+//npx hardhat test
