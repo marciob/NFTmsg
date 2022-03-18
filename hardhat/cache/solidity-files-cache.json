@@ -37,8 +37,8 @@
       ]
     },
     "/Users/m/Desktop/Chainshot/my-chainshot-folder/NFTmsg/hardhat/contracts/NftMsg.sol": {
-      "lastModificationDate": 1647527421751,
-      "contentHash": "f47c3faac472cdcc28f14f2298c5d1a4",
+      "lastModificationDate": 1647639126280,
+      "contentHash": "17f5619e1b592a4af9fdf7976a4e7faf",
       "sourceName": "contracts/NftMsg.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -64,7 +64,6 @@
         }
       },
       "imports": [
-        "hardhat/console.sol",
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
