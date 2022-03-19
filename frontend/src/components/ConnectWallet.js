@@ -63,17 +63,6 @@ function ConnectWallet() {
                     address == null ? (<div></div>) : (<div>Your address: {address}</div>)
                 }
             </div>
-            <div>
-                <button className="my-button" onClick={writeToIpfs}>
-                    Get IPFS Data
-                </button>
-            </div>
-
-            <div>
-                <button className="my-button" >
-                    Test Function
-                </button>
-            </div>
         </div>
     );
 }

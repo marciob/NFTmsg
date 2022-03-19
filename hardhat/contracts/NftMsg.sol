@@ -13,11 +13,6 @@ contract NftMsg is ERC721, ERC721URIStorage {
     //set NFT Name and Symbol
     constructor() ERC721("NFTmsg", "NMSG") {}
 
-    //set a base URI to be add in URIs
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://";
-    }
-
     //mint a NFT message for free
     function safeMint(address _to, string memory _uri)
         public

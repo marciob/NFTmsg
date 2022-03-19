@@ -1,44 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/m/Desktop/Chainshot/my-chainshot-folder/NFTmsg/hardhat/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1647215147851,
-      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
-      "sourceName": "hardhat/console.sol",
-      "solcConfig": {
-        "version": "0.8.4",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.22 <0.9.0"
-      ],
-      "artifacts": [
-        "console"
-      ]
-    },
     "/Users/m/Desktop/Chainshot/my-chainshot-folder/NFTmsg/hardhat/contracts/NftMsg.sol": {
-      "lastModificationDate": 1647639126280,
-      "contentHash": "17f5619e1b592a4af9fdf7976a4e7faf",
+      "lastModificationDate": 1647728211837,
+      "contentHash": "8f6607b3dea9f28ab34e9d488c2a345b",
       "sourceName": "contracts/NftMsg.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -66,7 +31,6 @@
       "imports": [
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/utils/Counters.sol"
       ],
       "versionPragmas": [
@@ -154,43 +118,6 @@
       ],
       "artifacts": [
         "ERC721URIStorage"
-      ]
-    },
-    "/Users/m/Desktop/Chainshot/my-chainshot-folder/NFTmsg/hardhat/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1647270213139,
-      "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
-      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
-      "solcConfig": {
-        "version": "0.8.4",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Ownable"
       ]
     },
     "/Users/m/Desktop/Chainshot/my-chainshot-folder/NFTmsg/hardhat/node_modules/@openzeppelin/contracts/utils/Counters.sol": {

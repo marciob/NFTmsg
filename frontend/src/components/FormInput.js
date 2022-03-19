@@ -4,8 +4,10 @@ import { ethers } from 'ethers';
 import "../formInput.css"
 import NftMsg from '../utils/NftMsg.json';
 import uploadToIpfs from "../utils/upload";
+import axios from 'axios';
+import { ipfs } from 'ipfs-http-client';
 
-const contractAddresss = "0x1807F04587F4928d2526d1bAD4986c69550FE04d";
+const contractAddresss = "0x0FB6eDB667b3de0CC389A153CC0268E79a9f6740";
 
 export default function FormInput() {
 
@@ -77,10 +79,27 @@ export default function FormInput() {
 
     }
 
+    async function getNftData() {
+        const signer = await provider.getSigner();
+        const contractInstance = new ethers.Contract(contractAddresss, NftMsg.abi, signer);
+
+        const tokenURI_ = await contractInstance.tokenURI(0);
+
+        console.log(tokenURI_);
+
+        // const items = await Promise.all(tokenURI_.map(async i => {
+        //     console.log(i);
+        //     return i;
+        // }
+        // ));
+
+    }
+
+    getNftData();
+
     return (
         <div>
             <div className="container">
-                <pre>{JSON.stringify(userInfo, undefined, 2)}</pre>
                 <form >
                     <h1>NFT Message</h1>
                     <div className="ui divider"></div>
@@ -118,6 +137,7 @@ export default function FormInput() {
                         <button className="fluid ui button blue" onClick={handleSubmit((data) => generateMetadata(data))} >Submit</button>
                     </div>
                 </form>
+                <pre>{JSON.stringify(userInfo, undefined, 2)}</pre>
             </div>
         </div>
     );
