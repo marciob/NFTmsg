@@ -5,7 +5,6 @@ import "../formInput.css"
 import NftMsg from '../utils/NftMsg.json';
 import uploadToIpfs from "../utils/upload";
 import axios from 'axios';
-import { ipfs } from 'ipfs-http-client';
 
 const contractAddresss = "0x9f3481c864B5EA818E28e145bf29EC1Aa5743782";
 
@@ -26,13 +25,17 @@ export default function FormInput() {
     //     }
     // }, []);
 
-    if (ethereum) {
-        console.log("This user has MetaMask!")
-        provider = new ethers.providers.Web3Provider(ethereum);
+    async function checkMetamask() {
 
-    } else {
-        console.log("Please, instal Metamask!");
+        if (ethereum) {
+            console.log("This user has MetaMask!")
+            provider = new ethers.providers.Web3Provider(ethereum);
+
+        } else {
+            console.log("Please, instal Metamask!");
+        }
     }
+
 
     async function connect() {
 
@@ -89,11 +92,6 @@ export default function FormInput() {
         const signer = await provider.getSigner();
         const contractInstance = new ethers.Contract(contractAddresss, NftMsg.abi, signer);
 
-        // const tokenURI = await contractInstance.tokenURI(tokenId);
-
-        //treat original URI to be able to show in UI
-        // let tokenURI_formated = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
-
         let totalSupply = await contractInstance.totalSupply();
 
         totalSupply = totalSupply.toNumber();
@@ -102,8 +100,6 @@ export default function FormInput() {
 
             let tokenURI = await contractInstance.tokenURI(i);
             let tokenURI_formated = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
-
-            // console.log(i)
 
             axios.get(tokenURI_formated)
                 .then(function (response) {
@@ -124,7 +120,6 @@ export default function FormInput() {
         }
     }
 
-    //0xeef18463fcb59d04d396b6dff5dcd1929fb77997
     async function getNftByAddress(_address) {
         const signer = await provider.getSigner();
         const contractInstance = new ethers.Contract(contractAddresss, NftMsg.abi, signer);
@@ -137,8 +132,6 @@ export default function FormInput() {
 
         for (let i = 0; i < totalOwner; i++) {
             ownedToken = tokensOwnedByAddr[i].toString();
-
-            console.log(tokensOwnedByAddr[i].toString());
 
             let tokenURI = await contractInstance.tokenURI(ownedToken);
             let tokenURI_formated = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
@@ -165,6 +158,7 @@ export default function FormInput() {
 
 
     useEffect(() => {
+        checkMetamask();
         getNftByAddress("0xeef18463fcb59d04d396b6dff5dcd1929fb77997");
     }, [])
 
