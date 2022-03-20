@@ -16,7 +16,9 @@ export default function FormInput() {
 
     const [address, setAddress] = useState(null);
 
-    const [tokenAddress, setTokenAddress] = useState([]);
+    const [tokenByAddress, setTokenByAddress] = useState([]);
+
+    const [newTokenByAddress, setNewTokenByAddress] = useState([]);
 
     // useEffect(() => {
     //     if (ethereum) {
@@ -88,79 +90,130 @@ export default function FormInput() {
         return uri_.replace("ipfs://", "https://ipfs.io/ipfs/");
     }
 
-    async function getAllNftData() {
+    // async function getAllNftData() {
+    //     const signer = await provider.getSigner();
+    //     const contractInstance = new ethers.Contract(contractAddresss, NftMsg.abi, signer);
+
+    //     let totalSupply = await contractInstance.totalSupply();
+
+    //     totalSupply = totalSupply.toNumber();
+
+    //     for (let i = 0; i < totalSupply; i++) {
+
+    //         let tokenURI = await contractInstance.tokenURI(i);
+    //         let tokenURI_formated = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+
+    //         axios.get(tokenURI_formated)
+    //             .then(function (response) {
+    //                 let item = {
+    //                     tokenId: i,
+    //                     from: response.data.attributes[0].value,
+    //                     to: response.data.attributes[1].value,
+    //                     image: response.data.image,
+    //                     message: response.data.attributes[3].value,
+    //                 }
+    //                 // console.log(item);
+    //                 i++;
+    //             })
+    //             .catch(function (error) {
+    //                 // handle error
+    //                 console.log(error);
+    //             })
+    //     }
+    // }
+
+    async function getIpfsById(tokenId) {
         const signer = await provider.getSigner();
         const contractInstance = new ethers.Contract(contractAddresss, NftMsg.abi, signer);
 
-        let totalSupply = await contractInstance.totalSupply();
+        let ipfs_data = await contractInstance.tokenURI(tokenId);
 
-        totalSupply = totalSupply.toNumber();
+        ipfs_data = ipfs_data.replace("ipfs://", "https://ipfs.io/ipfs/");
 
-        for (let i = 0; i < totalSupply; i++) {
+        //console.log(ipfs_data);
 
-            let tokenURI = await contractInstance.tokenURI(i);
-            let tokenURI_formated = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
-
-            axios.get(tokenURI_formated)
-                .then(function (response) {
-                    let item = {
-                        tokenId: i,
-                        from: response.data.attributes[0].value,
-                        to: response.data.attributes[1].value,
-                        image: response.data.image,
-                        message: response.data.attributes[3].value,
-                    }
-                    // console.log(item);
-                    i++;
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-        }
+        return ipfs_data;
     }
 
     async function getNftByAddress(_address) {
         const signer = await provider.getSigner();
         const contractInstance = new ethers.Contract(contractAddresss, NftMsg.abi, signer);
 
+        //get tokens ID owned by some address
         let tokensOwnedByAddr = await contractInstance.getTokenIds(_address);
+        // let totalOwner = tokensOwnedByAddr.length;
+        // let ownedTokens;
 
-        let totalOwner = tokensOwnedByAddr.length;
+        let arrayOfTokens = [];
 
-        let ownedToken;
+        await tokensOwnedByAddr.forEach(result => {
 
-        for (let i = 0; i < totalOwner; i++) {
-            ownedToken = tokensOwnedByAddr[i].toString();
+            arrayOfTokens.push(result.toNumber());
 
-            let tokenURI = await contractInstance.tokenURI(ownedToken);
-            let tokenURI_formated = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+        })
 
-            axios.get(tokenURI_formated)
-                .then(function (response) {
-                    let item = {
-                        tokenId: i,
-                        from: response.data.attributes[0].value,
-                        to: response.data.attributes[1].value,
-                        image: response.data.image,
-                        message: response.data.attributes[3].value,
-                    }
-                    console.log(item);
-                    setTokenAddress(item);
-                    i++;
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-        }
+        setTokenByAddress(arrayOfTokens);
+
+        console.log(tokenByAddress);
+
+        console.log(await getIpfsById(arrayOfTokens[0]));
+
+        // tokensOwnedByAddr.forEach(result => {
+        //     // setTokenByAddress(result.toNumber());
+        //     setNewTokenByAddress([...tokenByAddress, result.toNumber()])
+
+        // })
+
+        // // console.log(Array.isArray(tokensOwnedByAddr));
+        // console.log(newTokenByAddress);
+
+
+
+        // console.log(Array.isArray(tokenByAddress));
+
+        // console.log(tokensOwnedByAddr[0].toNumber());
+
+        // for (let i = 0; i < totalOwner; i++) {
+        //     ownedTokens = tokensOwnedByAddr[i].toString();
+
+        //     tokenURI = await contractInstance.tokenURI(ownedTokens);
+        //     tokenURI_formated = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+
+        //     axios.get(tokenURI_formated)
+        //         .then(function (response) {
+        //             let item = {
+        //                 tokenId: i,
+        //                 image: response.data.image,
+        //                 message: response.data.attributes[3].value
+        //             }
+
+        //             setTokenByAddress(item);
+
+        //             console.log(tokenByAddress);
+        //             i++;
+        //         })
+        //         .catch(function (error) {
+        //             // handle error
+        //             console.log(error);
+        //         })
+        // }
     }
-
 
     useEffect(() => {
         checkMetamask();
+
         getNftByAddress("0xeef18463fcb59d04d396b6dff5dcd1929fb77997");
     }, [])
+
+
+    // let item = {
+    //     tokenId: i,
+    //     from: response.data.attributes[0].value,
+    //     to: response.data.attributes[1].value,
+    //     image: response.data.image,
+    //     message: response.data.attributes[3].value,
+    // }
+
 
     return (
         <div>
@@ -203,10 +256,10 @@ export default function FormInput() {
                     </div>
                 </form>
                 <div>
-                    {tokenAddress == null ? ("") : (
+                    {tokenByAddress == null ? ("") : (
                         <div >
                             {
-                                // tokenAddress.map((nft, i) => (
+                                // tokenByAddress.map((nft, i) => (
                                 //     <div key={i}>
                                 //         <p>{nft.message}</p>
                                 //     </div>
@@ -219,5 +272,19 @@ export default function FormInput() {
         </div>
     );
 }
-{/* <img src={tokenAddress.image} width={200} height={200} />
-                                <p>{tokenAddress.message}</p> */}
+{/* <img src={tokenByAddress.image} width={200} height={200} />
+                                <p>{tokenByAddress.message}</p> */}
+
+{/* {Object.keys(tokenByAddress).map((nft, i) => (
+                                <div key={i}>
+                                    Key: {i}
+                                    <p>{nft.tokenId}</p>
+                                </div>
+                            ))} */}
+{
+    // tokenByAddress.map((nft, i) => (
+    //     <div key={i}>
+    //         <p>{nft.message}</p>
+    //     </div>
+    // ))
+}
