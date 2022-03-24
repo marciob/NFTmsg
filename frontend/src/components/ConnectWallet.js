@@ -58,7 +58,7 @@ function ConnectWallet() {
                 </div>
 
             </nav>
-            <div>
+            <div className='address'>
                 {
                     address == null ? (<div></div>) : (<div>Your address: {address}</div>)
                 }

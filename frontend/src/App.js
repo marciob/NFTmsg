@@ -6,7 +6,6 @@ const App = () => {
 
   return (
     <div>
-      <ConnectWallet />
       <FormInput />
     </div>
   );

@@ -48,6 +48,22 @@ contract NftMsg is ERC721, ERC721URIStorage, ERC721Enumerable {
         return newItemId;
     }
 
+    function getTokenIds(address _owner)
+        public
+        view
+        returns (uint256[] memory)
+    {
+        uint256[] memory _tokensOfOwner = new uint256[](
+            ERC721.balanceOf(_owner)
+        );
+        uint256 i;
+
+        for (i = 0; i < ERC721.balanceOf(_owner); i++) {
+            _tokensOfOwner[i] = ERC721Enumerable.tokenOfOwnerByIndex(_owner, i);
+        }
+        return (_tokensOfOwner);
+    }
+
     // The following functions are overrides required by Solidity.
 
     function _burn(uint256 tokenId)

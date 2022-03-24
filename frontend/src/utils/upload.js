@@ -27,10 +27,7 @@ export default async function uploadToIpfs(from, to, msg, content) {
                     "value": `${content}`
                 },
             ],
-            // if you want to upload your own IPFS image, you can do so here:
-            // https://github.com/ChainShot/IPFS-Upload
-            // or you can use https://www.pinata.cloud/
-            image: "https://gateway.pinata.cloud/ipfs/QmZMd88oazmVDv7mL6oqE1jMG1ffX5ufU3v9MeVgygFKpz/",
+            image: "https://gateway.ipfs.io/ipfs/QmVW3cHid4tvCm7WtBhcTYzVjmGDmSG5jdT7BnkQ9W3g39",
             description: "NFT messages sent on chain"
         })
     }];
